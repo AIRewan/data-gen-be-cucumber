@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  title: Person API
+  description: API for validating and accepting person data with hobbies
+  version: 1.0.0
+
+paths:
+  /data:
+    post:
+      summary: Accept person data
+      description: This endpoint accepts data about a person, including hobbies.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: Successful request
+        '400':
+          description: Invalid input
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        type:
+          type: string
+          example: person
+        name:
+          type: string
+          example: Anna
+        age:
+          type: integer
+          format: int32
+          example: 36
+        birthDate:
+          type: string
+          format: date
+          example: 1989-03-26
+        hobbies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hobby'
+      required:
+        - type
+        - name
+        - birthDate
+
+    Hobby:
+      type: object
+      properties:
+        type:
+          type: string
+          example: any
+        fav:
+          type: string
+          example: backend

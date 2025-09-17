@@ -3,6 +3,14 @@ Feature: File History Management
   I want the system to manage my file history
   So that I can see my recent files and prevent duplicate entries.
 
+  Scenario: Replace a file with the same name
+    Given a file named "<file_name>" with valid content is uploaded
+    When a file named "<file_name>" with updated content is uploaded
+    And the backend processes the request
+    Then the status code should be 200
+    And the response should include the uploaded filename and content
+    And the response should show the original filename list
+
   Scenario: Save a successfully processed file to history
     Given a user uploads a file named "<file_name>"
     When the file is successfully processed
